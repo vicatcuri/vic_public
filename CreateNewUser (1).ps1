@@ -104,6 +104,6 @@ $manager = get-aduser $manager | select -ExpandProperty distinguishedname
 $distinguishedname = "CN=$displayname," + $OU
 
 
-$defaultpassword = ConvertTo-SecureString -String "W3lc0me!" -AsPlainText -Force
+$defaultpassword = ConvertTo-SecureString -String "W3lc0me12345" -AsPlainText -Force
 
 New-ADUser $samaccountname -Path "$OU" -OtherAttributes @{distinguishedname="$distinguishedname";givenname="$givenname";sn="$surname";displayname="$displayname";userprincipalname="$upn";mail="$mail";mailnickname="$mailnickname";proxyaddresses="$proxyaddresses";telephonenumber="$telephonenumber";facsimileTelephoneNumber="$fax";ipphone="$ipphone";<#mobile="$mobile";#>physicalDeliveryOfficeName="$office";streetaddress="$streetaddress";l="$city";st="$state";postalcode="$postalcode";c="$country";WWWHomePage="$homepage";title="$title";department="$deptName";company="$company";manager="$manager"} -AccountPassword $defaultpassword -Enabled $True
