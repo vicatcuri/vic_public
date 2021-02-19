@@ -6,8 +6,6 @@ $MailSender = " Password Reminder <helpdesk@curi.com>"
 $Subject = 'FYI - Your network password will expire soon'
 $SMTPServer = '10.10.0.125'
 
-
-
 #Find accounts that are enabled and have expiring passwords (added additional where statement which filters out any accounts that aren't active employees using title, phonenumber, and company.)
 #Temporarily changed the filter to only pull my AD account for now so that the script doesn't accidentally email everyone while testing.
 $users = Get-ADUser -filter {Enabled -eq $True -and PasswordNeverExpires -eq $False -and PasswordLastSet -gt 0 } `
@@ -16,8 +14,6 @@ $users = Get-ADUser -filter {Enabled -eq $True -and PasswordNeverExpires -eq $Fa
  Select-Object -Property "Name", "GivenName", "EmailAddress", `
  @{Name = "DaysTilExp"; Expression = {(([datetime]::FromFileTime($_."msDS-UserPasswordExpiryTimeComputed")) - (get-date)).days }}, `
  @{Name = "PasswordExpiry"; Expression = {[datetime]::FromFileTime($_."msDS-UserPasswordExpiryTimeComputed") }}
-
-
 
 #Check password expiration date and send email on match
 foreach ($user in $users) {
