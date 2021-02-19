@@ -93,7 +93,6 @@ else
     $deptName = $($department.substring(3))
     }
 
-
 $title = Read-Host -Prompt "Input user's job title"
 $company = Read-Host -Prompt "Input company name"
 $manager = Read-Host -Prompt "Input user's manager's SamAccountName (pre-2000 logon)"
@@ -102,7 +101,6 @@ $OU = Get-ADOrganizationalUnit -Filter {name -eq $department} -Properties distin
 #$OU="OU=Remote Risk Consultants,OU=RM-Risk Management,OU=MMIC,DC=mmicnc,DC=local"
 $manager = get-aduser $manager | select -ExpandProperty distinguishedname
 $distinguishedname = "CN=$displayname," + $OU
-
 
 $defaultpassword = ConvertTo-SecureString -String "W3lc0me12345" -AsPlainText -Force
 
